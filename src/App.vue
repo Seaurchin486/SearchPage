@@ -1,16 +1,20 @@
 <template>
-  <SEARCH></SEARCH>  
+  <el-row>
+    <el-col :span="8" :offset="8">
+      <search-page></search-page>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
-import SEARCH from './components/search.vue'
+import SearchPage from "./components/search.vue";
 export default {
   name: "App",
   components: {
-    SEARCH,
-  },
+    SearchPage,
+  }
 };
-</script>
+</script>~
 
 <style>
 #app {
