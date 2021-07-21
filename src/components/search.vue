@@ -32,7 +32,17 @@
         {{ item.text }}
       </el-checkbox>
     </el-checkbox-group>
-
+    
+    <el-checkbox-group v-model="videoCheckList" size="normal">
+      <el-checkbox
+        v-for="item in videoSites"
+        :key="item.key"
+        :label="item.label"
+      >
+        {{ item.text }}
+      </el-checkbox>
+    </el-checkbox-group>
+    
     <div>
       <span>高级搜索</span>
       <el-switch
@@ -77,12 +87,16 @@ export default {
   props: {
     searchCheckList: {
       type: Array,
-      default: ["baidu"],
+      default: ["baidu"]
     },
     repositoryCheckList: {
       type: Array,
-      default: [],
+      default: []
     },
+    videoCheckList: {
+      type: Array,
+      default: []
+    }
   },
   data() {
     return {
@@ -112,7 +126,13 @@ export default {
         {
           label: "Github",
           text: "Github",
-        },
+        }
+      ],
+      videoSites: [
+        {
+          label: "bilibili",
+          text: "哔哩哔哩",
+        }
       ],
       keywords: "",
       shortcuts: [
@@ -231,6 +251,16 @@ export default {
             window.open(
               "https://github.com/search?q=" + this.keywords,
               "github"
+            );
+            break;
+        }
+      }
+      for (const item in this.videoCheckList) {
+        switch (this.videoCheckList[item]) {
+          case "bilibili":
+            window.open(
+              "https://search.bilibili.com/all?keyword=" + this.keywords,
+              "bilibili"
             );
             break;
         }
