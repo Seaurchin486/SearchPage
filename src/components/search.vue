@@ -8,7 +8,7 @@
     action="newpage"
   >
     <el-input
-      v-model="keywords"
+      v-model="form.keywords"
       placeholder="请输入关键字"
       clearable
       @keyup.enter='newpage'
@@ -125,7 +125,9 @@ export default {
           text: "哔哩哔哩",
         },
       ],
-      keywords: "",
+      form: {
+        keywords: "",
+      },
       timeInterval: [
         {
           text: "最近一天",
@@ -200,21 +202,21 @@ export default {
           case "baidu":
             // window.close('baidu')
             window.open(
-              "https://www.baidu.com/s?ie=UTF-8&wd=" + this.keywords,
+              "https://www.baidu.com/s?ie=UTF-8&wd=" + this.form.keywords,
               "baidu"
             );
             break;
           case "csdn":
             window.open(
               "https://so.csdn.net/so/search/all?q=" +
-                this.keywords +
+                this.form.keywords +
                 "&t=all&p=1&s=0&tm=0&lv=-1&ft=0&l=&u=",
               "csdn"
             );
             break;
           case "cnblog":
             window.open(
-              "https://zzk.cnblogs.com/s?w=" + this.keywords,
+              "https://zzk.cnblogs.com/s?w=" + this.form.keywords,
               "cnblog"
             );
             break;
@@ -222,7 +224,7 @@ export default {
             window.open(
               "https://www.zhihu.com/search?type=content&q=" +
                 "?wd=" +
-                this.keywords,
+                this.form.keywords,
               "zhihu"
             );
             break;
@@ -233,14 +235,14 @@ export default {
           case "Gitee":
             window.open(
               "https://search.gitee.com/?skin=rec&type=repository&q=" +
-                this.keywords +
+                this.form.keywords +
                 "&repo=&reponame=",
               "gitee"
             );
             break;
           case "Github":
             window.open(
-              "https://github.com/search?q=" + this.keywords,
+              "https://github.com/search?q=" + this.form.keywords,
               "github"
             );
             break;
@@ -250,13 +252,16 @@ export default {
         switch (this.videoCheckList[item]) {
           case "bilibili":
             window.open(
-              "https://search.bilibili.com/all?keyword=" + this.keywords,
+              "https://search.bilibili.com/all?keyword=" + this.form.keywords,
               "bilibili"
             );
             break;
         }
       }
     },
+    searchApi() {
+
+    }
   },
 };
 </script>
