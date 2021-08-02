@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="8" :offset="8">
+    <el-col :span="8" :offset="8"><!-- 24等分 -->
       <search-page></search-page>
     </el-col>
   </el-row>
@@ -14,7 +14,7 @@ export default {
     SearchPage,
   }
 };
-</script>~
+</script>
 
 <style>
 #app {

@@ -11,6 +11,7 @@
       v-model="keywords"
       placeholder="请输入关键字"
       clearable
+      @keyup.enter='newpage'
     ></el-input>
 
     <el-checkbox-group v-model="searchCheckList" size="normal">
@@ -32,7 +33,7 @@
         {{ item.text }}
       </el-checkbox>
     </el-checkbox-group>
-    
+
     <el-checkbox-group v-model="videoCheckList" size="normal">
       <el-checkbox
         v-for="item in videoSites"
@@ -42,40 +43,41 @@
         {{ item.text }}
       </el-checkbox>
     </el-checkbox-group>
-    
-    <div>
+
+    <div id="advanced">
       <span>高级搜索</span>
       <el-switch
         v-model="isExpert"
         :active-value="true"
         :inactive-value="flase"
       ></el-switch>
-    </div>
-    <div v-show="isExpert" class="exportsearch">
-      <el-form-item label="时间范围:" size="mini">
-        <el-date-picker
-          v-model="date_value"
-          type="daterange"
-          align="right"
-          unlink-panels
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :shortcuts="shortcuts"
-        >
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="类型:" size="mini">
-        <el-select v-model="type_value" clearable placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+
+      <div v-show="isExpert" class="advancedConfig">
+        <el-form-item label="时间范围:" size="mini">
+          <el-date-picker
+            v-model="date_value"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :timeInterval="timeInterval"
           >
-          </el-option>
-        </el-select>
-      </el-form-item>
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="类型:" size="mini">
+          <el-select v-model="type_value" clearable placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </div>
     </div>
     <el-button type="primary" size="default" @click="newpage">搜索</el-button>
   </el-form>
@@ -84,22 +86,11 @@
 <script>
 export default {
   name: "search",
-  props: {
-    searchCheckList: {
-      type: Array,
-      default: ["baidu"]
-    },
-    repositoryCheckList: {
-      type: Array,
-      default: []
-    },
-    videoCheckList: {
-      type: Array,
-      default: []
-    }
-  },
   data() {
     return {
+      searchCheckList: ["baidu"],
+      repositoryCheckList: [],
+      videoCheckList: [],
       searchSites: [
         {
           label: "baidu",
@@ -126,16 +117,16 @@ export default {
         {
           label: "Github",
           text: "Github",
-        }
+        },
       ],
       videoSites: [
         {
           label: "bilibili",
           text: "哔哩哔哩",
-        }
+        },
       ],
       keywords: "",
-      shortcuts: [
+      timeInterval: [
         {
           text: "最近一天",
           value: (() => {
@@ -279,7 +270,7 @@ export default {
   height: 50px;
   font-size: 16px;
 }
-.exportsearch {
+.advancedConfig {
   text-align: left;
   width: 70%;
   margin: auto;
