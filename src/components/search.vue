@@ -223,7 +223,6 @@ export default {
           case "zhihu":
             window.open(
               "https://www.zhihu.com/search?type=content&q=" +
-                "?wd=" +
                 this.form.keywords,
               "zhihu"
             );
